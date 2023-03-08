@@ -2,7 +2,7 @@
 
 ## This project has the goal to discover customers similarities to create an insiders program
 
-#### This project was made by Pedro Ferraresi.
+#### This project was made by Breno Teixeira Chaves.
 
 # 1. Business Problem.
 
