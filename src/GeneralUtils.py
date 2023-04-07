@@ -1,4 +1,7 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import sklearn.metrics as mt
+
 
 def sum_table(df_):
 
@@ -55,3 +58,46 @@ def segment(score):
 
     if score in [111, 112, 121, 131,141,151]: 
         return 'Lost customers'
+    
+
+
+
+
+def silhouette_analysis(X, labels, ax, k):
+    """_summary_
+
+    Args:
+        X (_type_): _description_
+        labels (_type_): _description_
+        ax (_type_): _description_
+    """
+    # clusters = [2, 3, 4 ,5, 6, 7]
+
+    # performance
+    #scores, labels = silhouettes(model, X, k, model_cat=model_type)
+    scores = mt.silhouette_samples(X, labels)
+    ss = mt.silhouette_score(X, labels)
+
+    y_lower = 10
+    plt.style.use('ggplot')
+    for i in np.unique(labels):
+
+
+        # Cluster scores
+        ith_silhouette_values = scores[labels == i]
+        ith_silhouette_values.sort()
+
+        # size cluster
+        size_cluster_i = len(ith_silhouette_values)
+        y_upper = y_lower + size_cluster_i
+
+        ax.set_xlim([-0.1, 1])
+        ax.set_ylim([0, len(X) + (k + 1)*10])
+        
+        
+        ax.fill_betweenx(np.arange(y_lower, y_upper), 0, ith_silhouette_values )
+        ax.set_title(f'N clusters = {k}')
+        y_lower = y_upper + 10
+        
+    ax.axvline(x=ss, ymin=-0.1, ymax=1, ls='--', c='red', label='Average Silhouette Score')
+    ax.legend(loc='upper right')
