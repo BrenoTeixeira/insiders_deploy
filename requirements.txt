@@ -12,3 +12,4 @@ python-dotenv==1.0.0
 sqlalchemy==1.4.3
 setuptools==65.6.3
 plotly==5.9.0
+s3fs==2023.4.0
